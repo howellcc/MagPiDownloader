@@ -22,16 +22,17 @@
 
 $BASEDIR = Split-Path $MyInvocation.MyCommand.Path -Parent
 $OUTDIR = Join-Path $BASEDIR "special_issues"
+$ProgressPreference = 'SilentlyContinue'
 
 if (!(Test-Path $OUTDIR -PathType Container)) {
     New-Item -ItemType Directory -Path $OUTDIR | Out-Null
 }
 
 $file = Join-Path $BASEDIR "../sources-for-download/special-issues.txt"
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/joergi/downloader/main/windows/downloader.ps1 -OutFile downloader.ps1
+# Invoke-WebRequest -Uri https://raw.githubusercontent.com/joergi/downloader/main/windows/downloader.ps1 -OutFile downloader.ps1
 
 Get-Content $file | ForEach-Object {
-    pwsh -Command ./downloader.ps1 -downloadUrl $_ -outputDir $OUTDIR
+    powershell -Command ./downloader.ps1 -downloadUrl $_ -outputDir $OUTDIR
 
 #    $downloaderScript = Invoke-WebRequest https://raw.githubusercontent.com/joergi/downloader/main/windows/downloader.ps1 -UseBasicParsing
 #    $downloaderScriptContent = $downloaderScript.Content

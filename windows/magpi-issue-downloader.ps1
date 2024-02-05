@@ -24,6 +24,7 @@ if (!$LastIssue) {
 }
 
 $downloadDir = Join-Path $baseDir "issues"
+$ProgressPreference = 'SilentlyContinue'
 
 # Check if directory dont exist and try create
 if (!(Test-Path -Path $downloadDir)) {
